@@ -23,6 +23,24 @@
   }
 }
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 :root {
   --main-purple: #9651ef;
   --secondary-purple: #ae74f8;
@@ -33,10 +51,14 @@
 }
 
 .hidden {
+  animation: fadeOut 1s forwards;
+  opacity: 0;
   visibility: hidden;
 }
 
 .visible {
+  animation: fadeIn 1s forwards;
+  opacity: 1;
   visibility: visible;
 }
 
@@ -97,7 +119,7 @@ body {
     width: 90%;
     height: 90%;
     background-color: var(--yellow);
-    color: black; //delete later
+    transition: background-color 0.25s ease-in-out;
 
     &:hover {
       cursor: pointer;
@@ -122,30 +144,45 @@ body {
       margin-right: 0;
     }
   }
+
+  .failed {
+    &:after {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%) rotate(45deg);
+      content: "";
+      width: 10px;
+      height: 80%;
+      background-color: var(--red);
+    }
+
+    &:before {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+      content: "";
+      width: 10px;
+      height: 80%;
+      background-color: var(--red);
+    }
+  }
 }
 
-.failed {
-  &:after {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%) rotate(45deg);
-    content: "";
-    width: 10px;
-    height: 80%;
-    background-color: var(--red);
-  }
+.gameOver {
+  @include flex(column, center, center);
 
-  &:before {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%) rotate(-45deg);
-    content: "";
-    width: 10px;
-    height: 80%;
-    background-color: var(--red);
-  }
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 40vw;
+  z-index: 1;
+
+  background-color: var(--red);
+  padding: 40px;
+  border-radius: 10px;
 }
 
 .btn {
@@ -159,6 +196,7 @@ body {
   padding: 15px 45px;
   border-radius: 10px;
   animation: buttonColorLoop 1.5s infinite;
+  transition: all 1s ease-in-out;
 
   &:hover {
     cursor: pointer;

@@ -29,6 +29,42 @@
   }
 }
 
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 :root {
   --main-purple: #9651ef;
   --secondary-purple: #ae74f8;
@@ -39,10 +75,16 @@
 }
 
 .hidden {
+  -webkit-animation: fadeOut 1s forwards;
+          animation: fadeOut 1s forwards;
+  opacity: 0;
   visibility: hidden;
 }
 
 .visible {
+  -webkit-animation: fadeIn 1s forwards;
+          animation: fadeIn 1s forwards;
+  opacity: 1;
   visibility: visible;
 }
 
@@ -143,7 +185,8 @@ body:after {
   width: 90%;
   height: 90%;
   background-color: var(--yellow);
-  color: black;
+  -webkit-transition: background-color 0.25s ease-in-out;
+  transition: background-color 0.25s ease-in-out;
 }
 
 .tilesWrapper .tile:hover {
@@ -179,7 +222,7 @@ body:after {
   margin-right: 0;
 }
 
-.failed:after {
+.failsWrapper .failed:after {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -191,7 +234,7 @@ body:after {
   background-color: var(--red);
 }
 
-.failed:before {
+.failsWrapper .failed:before {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -201,6 +244,32 @@ body:after {
   width: 10px;
   height: 80%;
   background-color: var(--red);
+}
+
+.gameOver {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%);
+  width: 40vw;
+  z-index: 1;
+  background-color: var(--red);
+  padding: 40px;
+  border-radius: 10px;
 }
 
 .btn {
@@ -215,6 +284,8 @@ body:after {
   border-radius: 10px;
   -webkit-animation: buttonColorLoop 1.5s infinite;
           animation: buttonColorLoop 1.5s infinite;
+  -webkit-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
 }
 
 .btn:hover {
