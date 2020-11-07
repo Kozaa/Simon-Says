@@ -47,7 +47,10 @@ const flash = async (i: number) => {
 };
 
 const playSequence = async (sequence: number[]) => {
-  await sleep(1000);
+  gameState.userTurn = false;
+
+  await sleep(1500);
+
   for (let i = 0; i < sequence.length; i++) {
     await flash(sequence[i]);
   }
@@ -71,12 +74,10 @@ tiles.forEach((tile) => {
       gameState.userSequence = [...gameState.currentSequence];
       playSequence(gameState.currentSequence);
     } else {
-      console.log("game over");
       gameOverModal.classList.add("visible");
     }
 
     if (gameState.userSequence.length === 0) {
-      gameState.userTurn = false;
       gameState.round += 1;
       roundDisplay.innerHTML = `Round: ${gameState.round}`;
       getRandomSequence(gameState.round);
@@ -95,16 +96,16 @@ const gameStart = async () => {
   startBtn.classList.add("hidden");
   body.classList.add("animateBackground");
 
-  await sleep(2000);
-
-  getRandomSequence(1);
-
-  playSequence(gameState.currentSequence);
-
   window.scrollTo({
     top: 0,
     behavior: "smooth",
   });
+
+  await sleep(1000);
+
+  getRandomSequence(1);
+
+  playSequence(gameState.currentSequence);
 };
 
 startBtn.addEventListener("click", () => gameStart());

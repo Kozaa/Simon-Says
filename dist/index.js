@@ -88,7 +88,9 @@ var playSequence = function (sequence) { return __awaiter(void 0, void 0, void 0
     var i;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, sleep(1000)];
+            case 0:
+                gameState.userTurn = false;
+                return [4 /*yield*/, sleep(1500)];
             case 1:
                 _a.sent();
                 i = 0;
@@ -125,11 +127,9 @@ tiles.forEach(function (tile) {
             playSequence(gameState.currentSequence);
         }
         else {
-            console.log("game over");
             gameOverModal.classList.add("visible");
         }
         if (gameState.userSequence.length === 0) {
-            gameState.userTurn = false;
             gameState.round += 1;
             roundDisplay.innerHTML = "Round: " + gameState.round;
             getRandomSequence(gameState.round);
@@ -148,15 +148,15 @@ var gameStart = function () { return __awaiter(void 0, void 0, void 0, function 
                 startBtn.style.animation = "none";
                 startBtn.classList.add("hidden");
                 body.classList.add("animateBackground");
-                return [4 /*yield*/, sleep(2000)];
-            case 1:
-                _a.sent();
-                getRandomSequence(1);
-                playSequence(gameState.currentSequence);
                 window.scrollTo({
                     top: 0,
                     behavior: "smooth",
                 });
+                return [4 /*yield*/, sleep(1000)];
+            case 1:
+                _a.sent();
+                getRandomSequence(1);
+                playSequence(gameState.currentSequence);
                 return [2 /*return*/];
         }
     });

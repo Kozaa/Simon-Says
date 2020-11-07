@@ -4,13 +4,6 @@
   box-sizing: border-box;
 }
 
-@mixin flex($dir, $align, $justify) {
-  display: flex;
-  flex-direction: $dir;
-  align-items: $align;
-  justify-content: $justify;
-}
-
 @keyframes buttonColorLoop {
   0% {
     color: var(--main-purple);
@@ -64,8 +57,10 @@
 }
 
 body {
-  @include flex(row, space-between, space-between);
-
+  display: flex;
+  flex-direction: row;
+  align-items: space-between;
+  justify-content: space-between;
   margin: 0;
   height: 100vh;
   width: 100%;
@@ -74,38 +69,39 @@ body {
   font-weight: 700;
   font-size: calc(1vw + 1vh + 5px);
   color: var(--yellow);
-
-  &:after {
-    position: fixed;
-    top: 0;
-    left: 0;
-    transform: translateX(40%);
-    transition: transform 0.5s ease-in-out;
-
-    height: 100vh;
-    width: 40vw;
-    z-index: -1;
-
-    content: "";
-    background-color: var(--secondary-purple);
-  }
 }
 
-.animateBackground {
-  &:after {
-    transform: translateX(100%);
-  }
+body:after {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translateX(40%);
+  transition: transform 0.5s ease-in-out;
+  height: 100vh;
+  width: 40vw;
+  z-index: -1;
+  content: "";
+  background-color: var(--secondary-purple);
+}
+
+.animateBackground:after {
+  transform: translateX(100%);
 }
 
 .sidebar {
-  @include flex(column, center, flex-start);
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   width: 30%;
   padding: 10vh 50px;
 }
 
 .main {
-  @include flex(column, center, center);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 40%;
 }
 
@@ -115,72 +111,72 @@ body {
   display: grid;
   grid-template: 1fr 1fr / 1fr 1fr;
   transform: rotate(45deg);
+}
 
-  .tile {
-    width: 90%;
-    height: 90%;
-    background-color: var(--yellow);
-    transition: background-color 0.25s ease-in-out;
+.tilesWrapper .tile {
+  width: 90%;
+  height: 90%;
+  background-color: var(--yellow);
+  transition: background-color 0.25s ease-in-out;
+}
 
-    &:hover {
-      cursor: pointer;
-    }
-  }
+.tilesWrapper .tile:hover {
+  cursor: pointer;
 }
 
 .failsWrapper {
-  @include flex(row, center, space-between);
-
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 100px;
+}
 
-  .fail {
-    position: relative;
-    width: 50px;
-    height: 50px;
-    margin-right: 30px;
+.failsWrapper .fail {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  margin-right: 30px;
+  background-color: var(--yellow);
+}
 
-    background-color: var(--yellow);
+.failsWrapper .fail:last-child {
+  margin-right: 0;
+}
 
-    &:last-child {
-      margin-right: 0;
-    }
-  }
+.failsWrapper .failed:after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%) rotate(45deg);
+  content: "";
+  width: 10px;
+  height: 80%;
+  background-color: var(--red);
+}
 
-  .failed {
-    &:after {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translateX(-50%) translateY(-50%) rotate(45deg);
-      content: "";
-      width: 10px;
-      height: 80%;
-      background-color: var(--red);
-    }
-
-    &:before {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translateX(-50%) translateY(-50%) rotate(-45deg);
-      content: "";
-      width: 10px;
-      height: 80%;
-      background-color: var(--red);
-    }
-  }
+.failsWrapper .failed:before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+  content: "";
+  width: 10px;
+  height: 80%;
+  background-color: var(--red);
 }
 
 .gameOver {
-  @include flex(column, center, center);
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
   width: 40vw;
   z-index: 1;
-
   transition: all 1s ease-in-out;
   background-color: var(--red);
   padding: 40px;
@@ -199,30 +195,26 @@ body {
   border-radius: 10px;
   animation: buttonColorLoop 1.5s infinite;
   transition: all 1s ease-in-out;
+}
 
-  &:hover {
-    cursor: pointer;
-  }
+.btn:hover {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
   body {
     flex-direction: column;
   }
-
   .main {
     width: 100%;
   }
-
   .sidebar {
     width: 100%;
   }
-
   .tilesWrapper {
     height: 60vw;
     width: 60vw;
   }
-
   .gameOver {
     width: 80vw;
   }
